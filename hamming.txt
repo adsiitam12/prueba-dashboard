@@ -1,0 +1,27 @@
+Compression
+	Lossless - Huffman
+	Lossy - .jpg, .mp3, svd	
+
+Codigos de Hamming
+
+Tenemos una cadena de 7 bits:
+	0110000, representando al numero 0
+Queremos agregar datos para poder detectar errores. Una primera manera es utilizar bits de paridad (0 o 1 para asegurar  un numero par de bits 1)
+	0110000 -> 0 0110000	(ARQ)
+Otra manera es CRC. Pero, como lo hacemos sin tener que retransmitir. Para esto utilizamos Hamming.
+Tenemos un mensaje de 4 bits:
+	m_1 m_2 m_3 m_4
+Queremos agregar un cierto numero de bits p para poder marcar donde hay un error en el mensaje. Para esto tomamos k bits p de tal manera que estos puedan etiquetar al 
+mensaje completo de manera unica. Basicamente, queremos el minimo k tal que:
+	2^(k+m) >= k+m+1 (k es el numero de bits de paridad, m el tamaño del mensaje original y se añade 1 como bandera de que no hay error)
+
+En este caso tenemos 3 bits de paridad, con:
+	P1 = M_1 xor M_3 xor M_5 xor M_7
+	P2 = M_2 xor M_3 xor M_6 xor M_7
+	P3 = M_4 xor M_5 xor M_6 xor M_7
+Tomando en cuenta que añadimos los bits de paridad en las posiciones de la potencias de 2
+	M_1 M_2 M_3 M_4 M_5 M_6 M_7
+	p_1 p_2 m_1 p_3 m_2 m_3 m_4
+
+Revisar:	
+	Libro de hamming, pags - 20-28
